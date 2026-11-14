@@ -218,3 +218,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Data files: fetched by the pipeline, never committed
+data/
+*.parquet
+
+# Secrets
+.env
