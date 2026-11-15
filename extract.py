@@ -1,3 +1,4 @@
+import pandas as pd
 from pathlib import Path
 from urllib.request import urlretrieve
 
@@ -25,4 +26,26 @@ def download_file(url, dest_dir):
     urlretrieve(url, dest_path)
     return dest_path
 
-download_file(DATA_URL, DATA_DIR)
+
+def read_trips(file_path):
+    # Load the Parquet file into an in-memory DataFrame
+    return pd.read_parquet(file_path)
+
+
+def inspect_trips(df):
+    # Row and column counts
+    print("Shape:", df.shape)
+
+    # Column names and the type pandas assigned to each
+    print("\nColumn types:")
+    print(df.dtypes)
+
+    # Count of missing values per column
+    print("\nMissing values per column:")
+    print(df.isna().sum())
+
+
+path = download_file(DATA_URL, DATA_DIR)
+df = read_trips(path)
+inspect_trips(df)
+print(df.head(3).T)
