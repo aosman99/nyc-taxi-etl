@@ -43,6 +43,10 @@ def inspect_trips(df):
     # Count of missing values per column
     print("\nMissing values per column:")
     print(df.isna().sum())
+    
+    # Summary statistics (min, max, mean...) for key numeric columns
+    print("\nSummary statistics:")
+    print(df[["passenger_count", "trip_distance", "fare_amount", "total_amount"]].describe())
 
 
 path = download_file(DATA_URL, DATA_DIR)
