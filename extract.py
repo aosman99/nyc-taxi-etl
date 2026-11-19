@@ -1,6 +1,8 @@
 import pandas as pd
+from transform import transform_trips
 from pathlib import Path
 from urllib.request import urlretrieve
+
 
 # Public NYC TLC yellow taxi trips for January 2024 (Parquet)
 DATA_URL = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-01.parquet"
@@ -53,3 +55,8 @@ path = download_file(DATA_URL, DATA_DIR)
 df = read_trips(path)
 inspect_trips(df)
 print(df.head(3).T)
+
+df = transform_trips(df)
+print(df[["trip_duration_min", "is_suspect", "passenger_count"]].head())
+print("Suspect rows:", df["is_suspect"].sum())
+print("New shape:", df.shape)
