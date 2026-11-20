@@ -1,5 +1,6 @@
 import pandas as pd
 from transform import transform_trips
+from load import make_engine, load_trips
 from pathlib import Path
 from urllib.request import urlretrieve
 
@@ -60,3 +61,7 @@ df = transform_trips(df)
 print(df[["trip_duration_min", "is_suspect", "passenger_count"]].head())
 print("Suspect rows:", df["is_suspect"].sum())
 print("New shape:", df.shape)
+
+engine = make_engine()
+load_trips(df, engine)
+print("Load complete")
